@@ -1,19 +1,19 @@
 package org.main.controller;
 
 import org.main.models.Game;
-import org.main.repository.GameDAO;
+import org.main.repository.GameHttpClient;
 
 import java.util.Scanner;
 
 public class GameController {
-    private GameDAO gameDAO;
+    private final GameHttpClient gameHttpClient;
 
-    public GameController(GameDAO gameDAO) {
-        this.gameDAO = gameDAO;
+    public GameController(GameHttpClient gameHttpClient) {
+        this.gameHttpClient = gameHttpClient;
     }
 
     private void searchGameByName(String name) {
-        Game game = gameDAO.fetchGamesByName(name).getFirst();
+        Game game = gameHttpClient.fetchGamesByName(name).getFirst();
         if(game != null) {
             System.out.println(game);
         }

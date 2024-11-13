@@ -1,12 +1,12 @@
 package org.main;
 
 import org.main.controller.GameController;
-import org.main.repository.GameDAO;
+import org.main.repository.GameHttpClient;
 
 public class Main {
     public static void main(String[] args) {
-        GameDAO gameDAO = new GameDAO();
-        GameController gameController = new GameController(gameDAO);
+        GameHttpClient gameHttpClient = new GameHttpClient();
+        GameController gameController = new GameController(gameHttpClient);
         gameController.run();
     }
 }

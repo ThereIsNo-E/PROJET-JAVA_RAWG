@@ -8,12 +8,12 @@ import org.main.models.Game;
 import java.util.List;
 import java.io.IOException;
 
-public class GameDAO {
+public class GameHttpClient {
     private final ApiClient apiClient;
     private final Moshi moshi;
 
 
-    public GameDAO() {
+    public GameHttpClient() {
         this.apiClient = ApiClient.getInstance();
         this.moshi = new Moshi.Builder().build();
     }
