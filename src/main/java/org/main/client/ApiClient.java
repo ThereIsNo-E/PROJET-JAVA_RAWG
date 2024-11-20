@@ -1,4 +1,4 @@
-package org.main.repository;
+package org.main.client;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

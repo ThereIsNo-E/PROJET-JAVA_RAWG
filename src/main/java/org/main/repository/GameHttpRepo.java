@@ -2,18 +2,19 @@ package org.main.repository;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import org.main.client.ApiClient;
 import org.main.services.GameResponse;
 import org.main.models.Game;
 
 import java.util.List;
 import java.io.IOException;
 
-public class GameHttpClient {
+public class GameHttpRepo {
     private final ApiClient apiClient;
     private final Moshi moshi;
 
 
-    public GameHttpClient() {
+    public GameHttpRepo() {
         this.apiClient = ApiClient.getInstance();
         this.moshi = new Moshi.Builder().build();
     }

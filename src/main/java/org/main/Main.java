@@ -1,12 +1,12 @@
 package org.main;
 
 import org.main.controller.GameController;
-import org.main.repository.GameHttpClient;
+import org.main.repository.GameHttpRepo;
 
 public class Main {
     public static void main(String[] args) {
-        GameHttpClient gameHttpClient = new GameHttpClient();
-        GameController gameController = new GameController(gameHttpClient);
+        GameHttpRepo gameHttpRepo = new GameHttpRepo();
+        GameController gameController = new GameController(gameHttpRepo);
         gameController.run();
     }
 }
