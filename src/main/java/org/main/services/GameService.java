@@ -2,6 +2,7 @@ package org.main.services;
 
 import org.main.models.Game;
 import org.main.models.UserRequest;
+import org.main.repository.GameHttpRepo;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -9,17 +10,23 @@ import java.util.List;
 import java.util.Map;
 
 public class GameService {
+    private final GameHttpRepo repo;
+
+    public GameService(GameHttpRepo repo) {
+        this.repo = repo;
+    }
+
 
     public List<Game> fetchGames(UserRequest request) {
         List<Map.Entry<String,String>> parameters = mapParameters(request);
-
+        return repo.fetchGames(parameters);
     }
 
     // Méthode pour convertir une UserRequest en Map pour utilisation dans repository
     private List<Map.Entry<String, String>> mapParameters(UserRequest request) {
         List<Map.Entry<String, String>> parameters = new ArrayList<>();
 
-        if(request.getName() != null && !request.getName().isEmpty()) {
+        if(request.getName() != null) {
             parameters.add(entry("name", request.getName()));
         }
 

@@ -27,7 +27,7 @@ public class GameHttpRepo {
 //    }
 
     // Gestion de la requête
-    private List<Game> fetchGames(List<Map.Entry<String,String>> parameters) {
+    public List<Game> fetchGames(List<Map.Entry<String,String>> parameters) {
         try {
 
             // Obtention de la réponse json par la classe apiClient

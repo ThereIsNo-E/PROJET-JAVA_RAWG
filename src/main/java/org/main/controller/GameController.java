@@ -1,19 +1,23 @@
 package org.main.controller;
 
 import org.main.models.Game;
+import org.main.models.UserRequest;
 import org.main.repository.GameHttpRepo;
+import org.main.services.GameService;
 
 import java.util.Scanner;
 
 public class GameController {
-    private final GameHttpRepo gameHttpRepo;
+    private final GameService gameService;
 
-    public GameController(GameHttpRepo gameHttpRepo) {
-        this.gameHttpRepo = gameHttpRepo;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
     }
 
     private void searchGameByName(String name) {
-        Game game = gameHttpRepo.fetchGamesByName(name).getFirst();
+        UserRequest userRequest = new UserRequest();
+        userRequest.setName(name);
+        Game game = gameService.fetchGames(userRequest).getFirst();
         if(game != null) {
             System.out.println(game);
         }
