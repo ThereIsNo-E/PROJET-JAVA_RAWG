@@ -2,7 +2,6 @@ package org.main.controller;
 
 import org.main.models.Game;
 import org.main.models.UserRequest;
-import org.main.repository.GameHttpRepo;
 import org.main.services.GameService;
 
 import java.util.Scanner;

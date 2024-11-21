@@ -2,7 +2,7 @@ package org.main.repository;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import okhttp3.Request;
+
 import org.main.client.ApiClient;
 import org.main.utils.GameResponse;
 import org.main.models.Game;
@@ -10,8 +10,6 @@ import org.main.models.Game;
 import java.util.List;
 import java.io.IOException;
 import java.util.Map;
-
-import org.main.utils.GenreInfo;
 
 public class GameHttpRepo {
     private final ApiClient apiClient;

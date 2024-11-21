@@ -27,7 +27,7 @@ public class GameService {
         List<Map.Entry<String, String>> parameters = new ArrayList<>();
 
         if(request.getName() != null) {
-            parameters.add(entry("name", request.getName()));
+            parameters.add(entry("search", request.getName()));
         }
 
         if(request.getPlatforms() != null) {
