@@ -1,9 +1,11 @@
-package org.main.services;
+package org.main.utils;
 
-public class AbstractGameElement<T extends AbstractGameElement.Info> {
+public class AbstractGameWrapper<T extends AbstractGameWrapper.Info> {
     static class Info {
         int id;
         String name;
+        @Override
+        public String toString() { return name; }
     }
 
     protected T info;

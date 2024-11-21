@@ -21,23 +21,28 @@ public class GameController {
             System.out.println("Ce jeu n'existe pas");
         }
     }
+
+
     public void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenu dans l'application de recherche de jeux vidéos");
 
         while(true) {
             System.out.println("Quelle action souhaitez-vous exécuter ?");
-            System.out.println("1. Recherche par nom");
-            System.out.println("2. Quitter");
+            System.out.println("1. Ajouter un nom");
+            System.out.println("2. Ajouter un filtre");
+            System.out.println("3. Quitter");
             String option = scanner.nextLine().trim();
 
             switch(option) {
-                case "1":
+                case "1": // Ajout d'un nom à la recherche
                     System.out.print("Entrez un nom: ");
                     String name = scanner.nextLine();
                     searchGameByName(name);
                     break;
                 case "2":
+
+                case "3":
                     System.out.println("Au revoir...");
                     return;
 

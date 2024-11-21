@@ -1,4 +1,4 @@
-package org.main.services;
+package org.main.utils;
 
 import com.squareup.moshi.Json;
 import org.main.models.Game;
