@@ -9,6 +9,7 @@ import org.main.models.Game;
 
 import java.util.List;
 import java.io.IOException;
+import java.util.Map;
 
 import org.main.utils.GenreInfo;
 
@@ -21,21 +22,16 @@ public class GameHttpRepo {
         this.moshi = new Moshi.Builder().build();
     }
 
-    public List<GenreInfo> fetchGenres() {
-
-    }
-
-    // Formattage de la requête pour une recherche par nom
-    public List<Game> fetchGamesByName(String name) {
-        String url = "https://api.rawg.io/api/games?page=1&search=" + name;
-        return urlToGames(url);
-    }
+//    public List<GenreInfo> fetchGenres() {
+//
+//    }
 
     // Gestion de la requête
-    private List<Game> urlToGames(String url) {
+    private List<Game> fetchGames(List<Map.Entry<String,String>> parameters) {
         try {
+
             // Obtention de la réponse json par la classe apiClient
-            String jsonResponse = apiClient.get(url);
+            String jsonResponse = apiClient.get(parameters,"games");
             // Utilisation de moshi pour déserialiser la réponse
             JsonAdapter<GameResponse> jsonAdapter = moshi.adapter(GameResponse.class);
             GameResponse gameResponse = jsonAdapter.fromJson(jsonResponse);

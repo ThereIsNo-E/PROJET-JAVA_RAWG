@@ -6,6 +6,8 @@ import okhttp3.Response;
 import org.main.utils.UrlBuilder;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class ApiClient {
     private static ApiClient instance;
@@ -36,13 +38,24 @@ public class ApiClient {
 
 
     // Méthode pour exécuter une requête GET avec la clé API
-//    public String get(String url) throws IOException {
-//        Request request = new Request.Builder().url(url + "&key=" + apiKey).build();
-//        try (Response response = client.newCall(request).execute()) {
-//            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-//            return response.body() != null ? response.body().string() : null;
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public String get(List<Map.Entry<String,String>> parameters, String segment) throws IOException {
+        buildUrl(parameters, segment);
+        Request request = urlBuilder.build();
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            return response.body() != null ? response.body().string() : null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void buildUrl(List<Map.Entry<String,String>> parameters, String segment) {
+        urlBuilder.addSegment(segment);
+        for(Map.Entry<String,String> parameter : parameters) {
+            String key = parameter.getKey();
+            String value = parameter.getValue();
+            urlBuilder.addParam(key, value);
+        }
+        urlBuilder.addParam("key", apiKey);
+    }
 }
