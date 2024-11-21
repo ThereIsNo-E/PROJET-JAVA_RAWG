@@ -3,6 +3,7 @@ package org.main.client;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.main.utils.UrlBuilder;
 
 import java.io.IOException;
 
@@ -10,10 +11,12 @@ public class ApiClient {
     private static ApiClient instance;
     private final OkHttpClient client;
     private final String apiKey;
+    private final UrlBuilder urlBuilder;
 
     private ApiClient() {
         this.client = new OkHttpClient();
         this.apiKey = System.getProperty("API_KEY");
+        this.urlBuilder = new UrlBuilder("https://api.rawg.io/api");
     }
 
     // Méthode assurant le fonctionnement "Singleton" de la classe
@@ -30,14 +33,16 @@ public class ApiClient {
         return instance;
     }
 
+
+
     // Méthode pour exécuter une requête GET avec la clé API
-    public String get(String url) throws IOException {
-        Request request = new Request.Builder().url(url + "&key=" + apiKey).build();
-        try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-            return response.body() != null ? response.body().string() : null;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public String get(String url) throws IOException {
+//        Request request = new Request.Builder().url(url + "&key=" + apiKey).build();
+//        try (Response response = client.newCall(request).execute()) {
+//            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+//            return response.body() != null ? response.body().string() : null;
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

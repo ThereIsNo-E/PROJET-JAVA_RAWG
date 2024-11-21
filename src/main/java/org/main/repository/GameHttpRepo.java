@@ -2,6 +2,7 @@ package org.main.repository;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import okhttp3.Request;
 import org.main.client.ApiClient;
 import org.main.utils.GameResponse;
 import org.main.models.Game;
@@ -9,19 +10,20 @@ import org.main.models.Game;
 import java.util.List;
 import java.io.IOException;
 
+import org.main.utils.GenreInfo;
+
 public class GameHttpRepo {
     private final ApiClient apiClient;
     private final Moshi moshi;
-
 
     public GameHttpRepo() {
         this.apiClient = ApiClient.getInstance();
         this.moshi = new Moshi.Builder().build();
     }
 
-    //public List<Genre> fetchGenres() {
+    public List<GenreInfo> fetchGenres() {
 
-    //}
+    }
 
     // Formattage de la requête pour une recherche par nom
     public List<Game> fetchGamesByName(String name) {
