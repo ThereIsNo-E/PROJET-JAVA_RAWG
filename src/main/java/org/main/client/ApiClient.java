@@ -51,11 +51,14 @@ public class ApiClient {
 
     private void buildUrl(List<Map.Entry<String,String>> parameters, String segment) {
         urlBuilder.addSegment(segment);
-        for(Map.Entry<String,String> parameter : parameters) {
-            String key = parameter.getKey();
-            String value = parameter.getValue();
-            urlBuilder.addParam(key, value);
+        if (parameters != null){
+            for(Map.Entry<String,String> parameter : parameters) {
+                String key = parameter.getKey();
+                String value = parameter.getValue();
+                urlBuilder.addParam(key, value);
+            }
         }
+
         urlBuilder.addParam("key", apiKey);
     }
 }
