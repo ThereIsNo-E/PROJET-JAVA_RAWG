@@ -3,6 +3,7 @@ package org.main.services;
 import org.main.models.Game;
 import org.main.models.UserRequest;
 import org.main.repository.GameHttpRepo;
+import org.main.utils.GenreInfo;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -20,6 +21,10 @@ public class GameService {
     public List<Game> fetchGames(UserRequest request) {
         List<Map.Entry<String,String>> parameters = mapParameters(request);
         return repo.fetchGames(parameters);
+    }
+
+    public List<GenreInfo> fetchGenres() {
+        return repo.fetchGenres();
     }
 
     // Méthode pour convertir une UserRequest en Map pour utilisation dans repository

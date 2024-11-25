@@ -45,6 +45,7 @@ public class GameController {
                     break;
                 case "2":
 
+                    break;
                 case "3":
                     System.out.println("Au revoir...");
                     return;
