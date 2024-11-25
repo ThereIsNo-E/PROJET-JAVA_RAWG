@@ -66,7 +66,7 @@ public class GameController {
                     String name = scanner.nextLine();
                     addGameName(name, userRequest);
                     break;
-                case "2":
+                case "2": // Choix du filtre à ajouter
                     System.out.println("Choisissez un filtre");
                     System.out.println("1. Plateforme");
                     System.out.println("2. Genre");
@@ -76,10 +76,12 @@ public class GameController {
                     break;
                 case "3":
                     System.out.println("Envoi de la requête...");
-
+                    showGames(userRequest);
+                    userRequest.reset();
                     return;
                 case "4":
                     System.out.println("Au revoir...");
+                    scanner.close();
                     return;
 
                 default:

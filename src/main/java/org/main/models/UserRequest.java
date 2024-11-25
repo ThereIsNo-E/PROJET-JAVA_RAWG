@@ -41,6 +41,12 @@ public class UserRequest {
         stores.add(store);
     }
 
+    public void reset() {
+        name = null;
+        platforms.clear();
+        genres.clear();
+        stores.clear();
+    }
 
 
 }
