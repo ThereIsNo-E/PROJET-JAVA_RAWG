@@ -1,11 +1,13 @@
 package org.main.models;
 
+import java.util.List;
+
 // Fait le lien entre le controller et le gameService
 public class UserRequest {
     private String name;
-    private String[] platforms;
-    private String[] genres;
-    private String[] stores;
+    private List<String> platforms;
+    private List<String> genres;
+    private List<String> stores;
 
     public String getName() {
         return name;
@@ -15,27 +17,30 @@ public class UserRequest {
         this.name = name;
     }
 
-    public String[] getPlatforms() {
+    public List<String> getPlatforms() {
         return platforms;
     }
 
-    public void setPlatforms(String[] platforms) {
-        this.platforms = platforms;
-    }
-
-    public String[] getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(String[] genres) {
-        this.genres = genres;
-    }
-
-    public String[] getStores() {
+    public List<String> getStores() {
         return stores;
     }
 
-    public void setStores(String[] stores) {
-        this.stores = stores;
+    public void addPlatform(String platform) {
+        platforms.add(platform);
     }
+
+    public void addGenre(String genre) {
+        genres.add(genre);
+    }
+
+    public void addStore(String store) {
+        stores.add(store);
+    }
+
+
+
 }
