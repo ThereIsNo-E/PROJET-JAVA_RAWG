@@ -15,7 +15,6 @@ public class GameController {
 
     private void addGameName(String name, UserRequest userRequest) {
         userRequest.setName(name);
-
     }
 
     private void showGames(UserRequest userRequest) {
@@ -63,7 +62,7 @@ public class GameController {
             switch(option) {
                 case "1": // Ajout d'un nom à la recherche
                     System.out.print("Entrez un nom: ");
-                    String name = scanner.nextLine();
+                    String name = scanner.nextLine().trim();
                     addGameName(name, userRequest);
                     break;
                 case "2": // Choix du filtre à ajouter
@@ -78,7 +77,7 @@ public class GameController {
                     System.out.println("Envoi de la requête...");
                     showGames(userRequest);
                     userRequest.reset();
-                    return;
+                    break;
                 case "4":
                     System.out.println("Au revoir...");
                     scanner.close();

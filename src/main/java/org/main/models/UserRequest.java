@@ -43,9 +43,15 @@ public class UserRequest {
 
     public void reset() {
         name = null;
-        platforms.clear();
-        genres.clear();
-        stores.clear();
+        if(platforms != null) {
+            platforms.clear();
+        }
+        if(genres != null) {
+            genres.clear();
+        }
+        if(stores != null) {
+            stores.clear();
+        }
     }
 
 

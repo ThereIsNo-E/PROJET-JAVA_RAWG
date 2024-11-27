@@ -1,9 +1,11 @@
 package org.main.utils;
 
-public class AbstractResponse<T> {
-    private T results;
+import java.util.List;
 
-    public T getResults() {
+public class AbstractResponse<T> {
+    private List<T> results;
+
+    public List<T> getResults() {
         return results;
     }
 }

@@ -41,9 +41,9 @@ public class GameHttpRepo {
             // Utilisation de moshi pour déserialiser la réponse
             JsonAdapter<GameResponse> jsonAdapter = moshi.adapter(GameResponse.class);
             GameResponse gameResponse = jsonAdapter.fromJson(jsonResponse);
-            if(gameResponse != null && gameResponse.getGames() != null) {
+            if(gameResponse != null && gameResponse.getResults() != null) {
                 // On rend le premier résultat qui sera celui qui correspond le mieux
-                return gameResponse.getGames();
+                return gameResponse.getResults();
             }
             else {
                 return null;
