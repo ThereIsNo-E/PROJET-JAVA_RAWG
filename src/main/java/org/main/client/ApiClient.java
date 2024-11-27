@@ -13,12 +13,10 @@ public class ApiClient {
     private static ApiClient instance;
     private final OkHttpClient client;
     private final String apiKey;
-    private final UrlBuilder urlBuilder;
 
     private ApiClient() {
         this.client = new OkHttpClient();
         this.apiKey = System.getProperty("API_KEY");
-        this.urlBuilder = new UrlBuilder("https://api.rawg.io/api");
     }
 
     // Méthode assurant le fonctionnement "Singleton" de la classe
@@ -39,7 +37,8 @@ public class ApiClient {
 
     // Méthode pour exécuter une requête GET avec la clé API
     public String get(List<Map.Entry<String,String>> parameters, String segment) throws IOException {
-        buildUrl(parameters, segment);
+        UrlBuilder urlBuilder = new UrlBuilder("https://api.rawg.io/api");
+        buildUrl(parameters, segment, urlBuilder);
         Request request = urlBuilder.build();
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -49,7 +48,7 @@ public class ApiClient {
         }
     }
 
-    private void buildUrl(List<Map.Entry<String,String>> parameters, String segment) {
+    private void buildUrl(List<Map.Entry<String,String>> parameters, String segment, UrlBuilder urlBuilder) {
         urlBuilder.addSegment(segment);
         if (parameters != null){
             for(Map.Entry<String,String> parameter : parameters) {
