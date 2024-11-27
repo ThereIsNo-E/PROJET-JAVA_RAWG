@@ -25,9 +25,14 @@ public class GameHttpRepo {
     public List<GenreInfo> fetchGenres() {
         try {
             String jsonResponse = apiClient.get(null,"genres");
-            Type type = Types.newParameterizedType(List.class, GenreInfo.class);
-            JsonAdapter<List<GenreInfo>> jsonAdapter = moshi.adapter(type);
-            return jsonAdapter.fromJson(jsonResponse);
+            JsonAdapter<GenreResponse> jsonAdapter = moshi.adapter(GenreResponse.class);
+            GenreResponse genreResponse = jsonAdapter.fromJson(jsonResponse);
+            if(genreResponse != null && genreResponse.getResults() != null) {
+                return genreResponse.getResults();
+            }
+            else {
+                return null;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
