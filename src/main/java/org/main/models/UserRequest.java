@@ -1,14 +1,19 @@
 package org.main.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Fait le lien entre le controller et le gameService
 public class UserRequest {
     private String name;
-    private List<String> platforms;
-    private List<String> genres;
-    private List<String> stores;
+    private List<String> platforms = new ArrayList<>();
+    private List<String> genres = new ArrayList<>();
+    private List<String> stores = new ArrayList<>();
 
+
+    public UserRequest() {
+
+    }
     public String getName() {
         return name;
     }

@@ -3,8 +3,11 @@ package org.main.controller;
 import org.main.models.Game;
 import org.main.models.UserRequest;
 import org.main.services.GameService;
+import org.main.utils.GenreInfo;
 
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameController {
     private final GameService gameService;
@@ -33,11 +36,13 @@ public class GameController {
                 System.out.println("Choisissez une plateforme");
                 break;
             case "2":
-                gameService.fetchGenres().forEach(genre -> System.out.println(genre.getId() + " : "
+                AtomicInteger count = new AtomicInteger(1);
+                List<GenreInfo> genres = gameService.fetchGenres();
+                genres.forEach(genre -> System.out.println(count.getAndIncrement() + ". "
                         + genre.getName()));
                 System.out.println("Choisissez un genre");
-                String choice = scanner.nextLine().trim();
-                userRequest.addGenre(choice);
+                int choice = scanner.nextInt();
+                userRequest.addGenre(genres.get(choice).getName());
                 break;
             case "3":
                 System.out.println("Choisissez un magasin");
