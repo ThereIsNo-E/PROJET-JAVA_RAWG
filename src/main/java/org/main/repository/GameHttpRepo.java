@@ -22,6 +22,36 @@ public class GameHttpRepo {
         this.moshi = new Moshi.Builder().build();
     }
 
+    // méthode avec abstraction du type de réponse pour généraliser
+    // la méthode
+    public <T, R extends AbstractResponse<T>> List<T> fetchEntityList(Class<R> responseType) {
+        // Map entre type de retour et segment nécessaire
+        Map<Class<?>, String> segmentMap = Map.of(
+                GenreResponse.class, "genres",
+                PlatformResponse.class, "platforms",
+                StoreResponse.class, "stores"
+        );
+
+        String segment = segmentMap.get(responseType);
+        if(segment == null) {
+            throw new IllegalArgumentException("Type de réponse inconnu : " + responseType);
+        }
+
+        try {
+            String jsonResponse = apiClient.get(null, segment);
+            JsonAdapter<R> jsonAdapter = moshi.adapter(responseType);
+            R response = jsonAdapter.fromJson(jsonResponse);
+            if(response != null && response.getResults() != null) {
+                return response.getResults();
+            }
+            else {
+                return null;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<GenreInfo> fetchGenres() {
         try {
             String jsonResponse = apiClient.get(null,"genres");
