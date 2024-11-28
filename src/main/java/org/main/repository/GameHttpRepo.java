@@ -52,21 +52,21 @@ public class GameHttpRepo {
         }
     }
 
-    public List<GenreInfo> fetchGenres() {
-        try {
-            String jsonResponse = apiClient.get(null,"genres");
-            JsonAdapter<GenreResponse> jsonAdapter = moshi.adapter(GenreResponse.class);
-            GenreResponse genreResponse = jsonAdapter.fromJson(jsonResponse);
-            if(genreResponse != null && genreResponse.getResults() != null) {
-                return genreResponse.getResults();
-            }
-            else {
-                return null;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public List<GenreInfo> fetchGenres() {
+//        try {
+//            String jsonResponse = apiClient.get(null,"genres");
+//            JsonAdapter<GenreResponse> jsonAdapter = moshi.adapter(GenreResponse.class);
+//            GenreResponse genreResponse = jsonAdapter.fromJson(jsonResponse);
+//            if(genreResponse != null && genreResponse.getResults() != null) {
+//                return genreResponse.getResults();
+//            }
+//            else {
+//                return null;
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     // Gestion de la requête
     public List<Game> fetchGames(List<Map.Entry<String,String>> parameters) {
@@ -77,7 +77,6 @@ public class GameHttpRepo {
             JsonAdapter<GameResponse> jsonAdapter = moshi.adapter(GameResponse.class);
             GameResponse gameResponse = jsonAdapter.fromJson(jsonResponse);
             if(gameResponse != null && gameResponse.getResults() != null) {
-                // On rend le premier résultat qui sera celui qui correspond le mieux
                 return gameResponse.getResults();
             }
             else {

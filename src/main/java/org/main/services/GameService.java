@@ -1,5 +1,6 @@
 package org.main.services;
 
+import okhttp3.internal.platform.Platform;
 import org.main.models.Game;
 import org.main.models.UserRequest;
 import org.main.repository.GameHttpRepo;
@@ -43,26 +44,26 @@ public class GameService {
             parameters.add(entry("search", request.getName()));
         }
 
-        if(request.getPlatforms() != null) {
-            for(String platform : request.getPlatforms()) {
-                if(platform != null && !platform.isEmpty()) {
-                    parameters.add(entry("platform", platform));
+        if(request.getPlatforms() != null && !request.getPlatforms().isEmpty()) {
+            for(PlatformInfo platform : request.getPlatforms()) {
+                if(platform != null) {
+                    parameters.add(entry("platforms", String.valueOf(platform.getId())));
                 }
             }
         }
 
-        if(request.getGenres() != null) {
-            for(String genre : request.getGenres()) {
-                if(genre != null && !genre.isEmpty()) {
-                    parameters.add(entry("genre", genre));
+        if(request.getGenres() != null && !request.getGenres().isEmpty()) {
+            for(GenreInfo genre : request.getGenres()) {
+                if(genre != null) {
+                    parameters.add(entry("genres", String.valueOf(genre.getId())));
                 }
             }
         }
 
-        if(request.getStores() != null) {
-            for(String stores : request.getStores()) {
-                if(stores != null && !stores.isEmpty()) {
-                    parameters.add(entry("stores", stores));
+        if(request.getStores() != null && !request.getStores().isEmpty()) {
+            for(StoreInfo stores : request.getStores()) {
+                if(stores != null) {
+                    parameters.add(entry("stores", String.valueOf(stores.getId())));
                 }
             }
         }

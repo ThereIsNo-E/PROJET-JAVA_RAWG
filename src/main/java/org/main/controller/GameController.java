@@ -42,7 +42,7 @@ public class GameController {
                         + genre.getName()));
                 System.out.println("Choisissez un genre");
                 int choice = scanner.nextInt();
-                userRequest.addGenre(genres.get(choice).getName());
+                userRequest.addGenre(genres.get(choice-1));
                 break;
             case "3":
                 System.out.println("Choisissez un magasin");
