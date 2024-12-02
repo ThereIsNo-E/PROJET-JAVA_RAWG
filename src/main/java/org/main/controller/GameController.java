@@ -3,7 +3,7 @@ package org.main.controller;
 import org.main.models.Game;
 import org.main.models.UserRequest;
 import org.main.services.GameService;
-import org.main.utils.GenreInfo;
+import org.main.utils.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -33,20 +33,34 @@ public class GameController {
     private void addGameFilter(String option, UserRequest userRequest, Scanner scanner) {
         switch(option) {
             case "1":
+                AtomicInteger countPlatform = new AtomicInteger(1);
+                List<PlatformInfo> platforms = gameService.fetchPlatforms();
+                platforms.forEach(platform -> System.out.println(countPlatform.getAndIncrement() + ". "
+                        + platform.getName()));
                 System.out.println("Choisissez une plateforme");
+                int choicePlatform = scanner.nextInt();
+                scanner.nextLine(); // Passage à la ligne qui n'est pas effectué par nextInt()
+                userRequest.addPlatform(platforms.get(choicePlatform-1));
                 break;
             case "2":
-                AtomicInteger count = new AtomicInteger(1);
+                AtomicInteger countGenre = new AtomicInteger(1);
                 List<GenreInfo> genres = gameService.fetchGenres();
-                genres.forEach(genre -> System.out.println(count.getAndIncrement() + ". "
+                genres.forEach(genre -> System.out.println(countGenre.getAndIncrement() + ". "
                         + genre.getName()));
                 System.out.println("Choisissez un genre");
-                int choice = scanner.nextInt();
+                int choiceGenre = scanner.nextInt();
                 scanner.nextLine(); // Passage à la ligne qui n'est pas effectué par nextInt()
-                userRequest.addGenre(genres.get(choice-1));
+                userRequest.addGenre(genres.get(choiceGenre-1));
                 break;
             case "3":
+                AtomicInteger countStore = new AtomicInteger(1);
+                List<StoreInfo> stores = gameService.fetchStores();
+                stores.forEach(store -> System.out.println(countStore.getAndIncrement() + ". "
+                        + store.getName()));
                 System.out.println("Choisissez un magasin");
+                int choiceStore = scanner.nextInt();
+                scanner.nextLine(); // Passage à la ligne qui n'est pas effectué par nextInt()
+                userRequest.addStore(stores.get(choiceStore-1));
                 break;
             default:
                 System.out.println("Option invalide, veuillez réessayer");
