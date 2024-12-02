@@ -42,6 +42,7 @@ public class GameController {
                         + genre.getName()));
                 System.out.println("Choisissez un genre");
                 int choice = scanner.nextInt();
+                scanner.nextLine(); // Passage à la ligne qui n'est pas effectué par nextInt()
                 userRequest.addGenre(genres.get(choice-1));
                 break;
             case "3":
