@@ -36,7 +36,7 @@ public class ApiClient {
 
 
     // Méthode pour exécuter une requête GET avec la clé API
-    public String get(List<Map.Entry<String,String>> parameters, String segment) throws IOException {
+    public String get(Map<String,String> parameters, String segment) throws IOException {
         UrlBuilder urlBuilder = new UrlBuilder("https://api.rawg.io/api");
         buildUrl(parameters, segment, urlBuilder);
         Request request = urlBuilder.build();
@@ -48,14 +48,10 @@ public class ApiClient {
         }
     }
 
-    private void buildUrl(List<Map.Entry<String,String>> parameters, String segment, UrlBuilder urlBuilder) {
+    private void buildUrl(Map<String,String> parameters, String segment, UrlBuilder urlBuilder) {
         urlBuilder.addSegment(segment);
         if (parameters != null){
-            for(Map.Entry<String,String> parameter : parameters) {
-                String key = parameter.getKey();
-                String value = parameter.getValue();
-                urlBuilder.addParam(key, value);
-            }
+            parameters.forEach(urlBuilder::addParam);
         }
 
         urlBuilder.addParam("key", apiKey);

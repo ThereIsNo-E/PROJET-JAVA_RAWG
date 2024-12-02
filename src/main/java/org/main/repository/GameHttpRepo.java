@@ -69,7 +69,7 @@ public class GameHttpRepo {
 //    }
 
     // Gestion de la requête
-    public List<Game> fetchGames(List<Map.Entry<String,String>> parameters) {
+    public List<Game> fetchGames(Map<String,String> parameters) {
         try {
             // Obtention de la réponse json par la classe apiClient
             String jsonResponse = apiClient.get(parameters,"games");

@@ -1,7 +1,7 @@
 package org.main.utils;
 
 public class AbstractGameWrapper<T extends AbstractGameWrapper.Info> {
-    static class Info {
+    public static class Info {
         int id;
         String name;
 

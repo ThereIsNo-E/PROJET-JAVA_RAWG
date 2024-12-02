@@ -6,10 +6,8 @@ import org.main.models.UserRequest;
 import org.main.repository.GameHttpRepo;
 import org.main.utils.*;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameService {
     private final GameHttpRepo repo;
@@ -20,7 +18,8 @@ public class GameService {
 
 
     public List<Game> fetchGames(UserRequest request) {
-        List<Map.Entry<String,String>> parameters = mapParameters(request);
+        Map<String,String> parameters = mapParameters(request);
+
         return repo.fetchGames(parameters);
     }
 
@@ -37,42 +36,32 @@ public class GameService {
     }
 
     // Méthode pour convertir une UserRequest en Map pour utilisation dans repository
-    private List<Map.Entry<String, String>> mapParameters(UserRequest request) {
-        List<Map.Entry<String, String>> parameters = new ArrayList<>();
+    private Map<String,String> mapParameters(UserRequest request) {
+        Map<String, String> parameters = new HashMap<>();
 
         if(request.getName() != null) {
-            parameters.add(entry("search", request.getName()));
+            parameters.put("search", request.getName());
         }
 
         if(request.getPlatforms() != null && !request.getPlatforms().isEmpty()) {
-            for(PlatformInfo platform : request.getPlatforms()) {
-                if(platform != null) {
-                    parameters.add(entry("platforms", String.valueOf(platform.getId())));
-                }
-            }
+            parameters.put("platforms", getCommaSeparatedIds(request.getPlatforms()));
         }
 
         if(request.getGenres() != null && !request.getGenres().isEmpty()) {
-            for(GenreInfo genre : request.getGenres()) {
-                if(genre != null) {
-                    parameters.add(entry("genres", String.valueOf(genre.getId())));
-                }
-            }
+            parameters.put("genres", getCommaSeparatedIds(request.getGenres()));
         }
 
         if(request.getStores() != null && !request.getStores().isEmpty()) {
-            for(StoreInfo stores : request.getStores()) {
-                if(stores != null) {
-                    parameters.add(entry("stores", String.valueOf(stores.getId())));
-                }
-            }
+            parameters.put("stores", getCommaSeparatedIds(request.getStores()));
         }
 
         return parameters;
     }
 
-    // Méthode pour simplifier l'ajout d'entrées dans la list de map
-    private static Map.Entry<String, String> entry(String key, String value) {
-        return new AbstractMap.SimpleEntry<>(key, value);
+    private static String getCommaSeparatedIds(List<? extends AbstractGameWrapper.Info> infos) {
+        return infos.stream()
+                .map(info -> String.valueOf(info.getId()))
+                .collect(Collectors.joining(","));
     }
+
 }
