@@ -53,7 +53,7 @@ public class ApiClient {
         if (parameters != null){
             parameters.forEach(urlBuilder::addParam);
         }
-
+        urlBuilder.addParam("size", "100");
         urlBuilder.addParam("key", apiKey);
     }
 }

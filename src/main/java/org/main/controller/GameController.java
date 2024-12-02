@@ -21,9 +21,9 @@ public class GameController {
     }
 
     private void showGames(UserRequest userRequest) {
-        Game game = gameService.fetchGames(userRequest).getFirst();
-        if(game != null) {
-            System.out.println(game);
+        List<Game> games = gameService.fetchGames(userRequest);
+        if(games != null) {
+            System.out.println(games.getFirst());
         }
         else {
             System.out.println("Aucuns jeux correspondants");

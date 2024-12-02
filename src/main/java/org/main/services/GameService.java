@@ -19,8 +19,37 @@ public class GameService {
 
     public List<Game> fetchGames(UserRequest request) {
         Map<String,String> parameters = mapParameters(request);
+        List<Game> games = repo.fetchGames(parameters);
+        List<GenreInfo> genres = request.getGenres();
+        List<StoreInfo> stores = request.getStores();
+        List<PlatformInfo> platforms = request.getPlatforms();
 
-        return repo.fetchGames(parameters);
+        // Si des genres sont spécifiés, on filtre les jeux
+        if (genres != null && !genres.isEmpty()) {
+            games.removeIf(game -> {
+                // Check if all genres in the list are NOT in the game
+                return genres.stream().allMatch(genre ->
+                        game.getGenreInfos().stream().noneMatch(gameGenre -> gameGenre.getId() == genre.getId())
+                );
+            });
+        }
+
+
+        if(stores != null && !stores.isEmpty()) {
+            for(StoreInfo store : stores) {
+                StoreWrapper storeWrapper = new StoreWrapper(store);
+                games.removeIf(game -> !game.getStoreWrappers().contains(storeWrapper));
+            }
+        }
+
+        if(platforms != null && !platforms.isEmpty()) {
+            for(PlatformInfo platform : platforms) {
+                PlatformWrapper platformWrapper = new PlatformWrapper(platform);
+                games.removeIf(game -> !game.getPlatformWrappers().contains(platformWrapper));
+            }
+        }
+
+        return games;
     }
 
     public List<GenreInfo> fetchGenres() {
@@ -58,6 +87,7 @@ public class GameService {
         return parameters;
     }
 
+    // Méthode pour concaténer les ids des objets en une seule chaîne de caractères
     private static String getCommaSeparatedIds(List<? extends AbstractGameWrapper.Info> infos) {
         return infos.stream()
                 .map(info -> String.valueOf(info.getId()))

@@ -20,7 +20,17 @@ public class Game {
     @Json(name = "genres")
     private List<GenreInfo> genreInfos;
 
+    public List<PlatformWrapper> getPlatformWrappers() {
+        return platformWrappers;
+    }
 
+    public List<StoreWrapper> getStoreWrappers() {
+        return storeWrappers;
+    }
+
+    public List<GenreInfo> getGenreInfos() {
+        return genreInfos;
+    }
 
     @Override
     public String toString() {

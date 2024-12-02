@@ -9,6 +9,10 @@ public class Main {
         GameHttpRepo gameHttpRepo = new GameHttpRepo();
         GameService gameService = new GameService(gameHttpRepo);
         GameController gameController = new GameController(gameService);
-        gameController.run();
+        try {
+            gameController.run();
+        } catch (Exception e) {
+            System.out.println("Une erreur est survenue : " + e.getMessage());
+        }
     }
 }
