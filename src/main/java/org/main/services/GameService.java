@@ -24,42 +24,94 @@ public class GameService {
         List<StoreInfo> stores = request.getStores();
         List<PlatformInfo> platforms = request.getPlatforms();
 
-        // On utilise un iterateur pour pouvoir modifier la liste en iterrant dessus simultanement
-        if (genres != null && !genres.isEmpty()) {
-            for (GenreInfo genre : genres) {
-                Iterator<Game> iterator = games.iterator();
-                while (iterator.hasNext()) {
-                    Game game = iterator.next();
-                    boolean found = false;
-                    for (GenreInfo gameGenre : game.getGenreInfos()) {
-                        if (genre.getId() == gameGenre.getId()) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        iterator.remove();
-                    }
-                }
-            }
-        }
-
-
-        if(stores != null && !stores.isEmpty()) {
-            for(StoreInfo store : stores) {
-                StoreWrapper storeWrapper = new StoreWrapper(store);
-                games.removeIf(game -> !game.getStoreWrappers().contains(storeWrapper));
-            }
-        }
-
-        if(platforms != null && !platforms.isEmpty()) {
-            for(PlatformInfo platform : platforms) {
-                PlatformWrapper platformWrapper = new PlatformWrapper(platform);
-                games.removeIf(game -> !game.getPlatformWrappers().contains(platformWrapper));
-            }
-        }
+        filterGenres(genres, games);
+        filterStores(stores, games);
+        filterPlatforms(platforms, games);
 
         return games;
+    }
+
+    private void filterGenres(List<GenreInfo> genres, List<Game> games) {
+        // Filtrage des jeux sur la liste des genres
+        if (genres != null && !genres.isEmpty()) {
+            try {
+                for (GenreInfo genre : genres) {
+                    // On utilise un iterateur pour pouvoir modifier la liste en iterrant dessus simultanement
+                    Iterator<Game> iterator = games.iterator();
+                    while (iterator.hasNext()) {
+                        Game game = iterator.next();
+                        boolean found = false;
+
+                        for (GenreInfo gameGenre : game.getGenreInfos()) {
+                            if (genre.getId() == gameGenre.getId()) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            iterator.remove();
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Erreur sur le filtrage des genres:" + e.getMessage());
+            }
+        }
+    }
+
+    private void filterStores(List<StoreInfo> stores, List<Game> games) {
+        if (stores != null && !stores.isEmpty()) {
+            try{
+                for(StoreInfo store : stores) {
+                    Iterator<Game> iterator = games.iterator();
+                    while (iterator.hasNext()) {
+                        Game game = iterator.next();
+                        boolean found = false;
+                        // Etape additionnelle par rapport a genres car wrapper
+                        List<StoreWrapper> storeWrappers = game.getStoreWrappers();
+
+                        for (StoreWrapper storeWrapper : storeWrappers) {
+                            if(storeWrapper.storeInfo.getId() == store.getId()) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            iterator.remove();
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Erreur sur le filtrage des stores:" + e.getMessage());
+            }
+        }
+    }
+
+    private void filterPlatforms(List<PlatformInfo> platforms, List<Game> games) {
+        if (platforms != null && !platforms.isEmpty()) {
+            try{
+                for(PlatformInfo platform : platforms) {
+                    Iterator<Game> iterator = games.iterator();
+                    while (iterator.hasNext()) {
+                        Game game = iterator.next();
+                        boolean found = false;
+                        List<PlatformWrapper> platformWrappers = game.getPlatformWrappers();
+
+                        for (PlatformWrapper platformWrapper : platformWrappers) {
+                            if(platformWrapper.platformInfo.getId() == platform.getId()) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            iterator.remove();
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Erreur sur le filtrage des platforms:" + e.getMessage());
+            }
+        }
     }
 
     public List<GenreInfo> fetchGenres() {
