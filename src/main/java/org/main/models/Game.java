@@ -16,7 +16,10 @@ public class Game {
     @Json(name = "stores")
     private List<StoreWrapper> storeWrappers;
     private String released;
-    private float rating;
+    @Json(name = "rating")
+    private float userRating;
+    @Json(name = "metacritic")
+    private Integer criticRating = -1;
     @Json(name = "genres")
     private List<GenreInfo> genreInfos;
 
@@ -37,7 +40,8 @@ public class Game {
         return
                 "title: " + title + '\n' +
                 "release date: " + released + '\n' +
-                "average rating: " + rating + '\n' +
+                "average user rating: " + userRating + '\n' +
+                "metacritic rating: " + criticRating + '\n' +
                 "genres: " + genreInfos.toString() + '\n' +
                 "stores: " + storeWrappers.toString() + '\n' +
                 "platforms: " + platformWrappers.toString() + '\n' +

@@ -52,21 +52,6 @@ public class GameHttpRepo {
         }
     }
 
-//    public List<GenreInfo> fetchGenres() {
-//        try {
-//            String jsonResponse = apiClient.get(null,"genres");
-//            JsonAdapter<GenreResponse> jsonAdapter = moshi.adapter(GenreResponse.class);
-//            GenreResponse genreResponse = jsonAdapter.fromJson(jsonResponse);
-//            if(genreResponse != null && genreResponse.getResults() != null) {
-//                return genreResponse.getResults();
-//            }
-//            else {
-//                return null;
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     // Gestion de la requête
     public List<Game> fetchGames(Map<String,String> parameters) {
