@@ -24,14 +24,24 @@ public class GameService {
         List<StoreInfo> stores = request.getStores();
         List<PlatformInfo> platforms = request.getPlatforms();
 
-        // Si des genres sont spécifiés, on filtre les jeux
+        // On utilise un iterateur pour pouvoir modifier la liste en iterrant dessus simultanement
         if (genres != null && !genres.isEmpty()) {
-            games.removeIf(game -> {
-                // Check if all genres in the list are NOT in the game
-                return genres.stream().allMatch(genre ->
-                        game.getGenreInfos().stream().noneMatch(gameGenre -> gameGenre.getId() == genre.getId())
-                );
-            });
+            for (GenreInfo genre : genres) {
+                Iterator<Game> iterator = games.iterator();
+                while (iterator.hasNext()) {
+                    Game game = iterator.next();
+                    boolean found = false;
+                    for (GenreInfo gameGenre : game.getGenreInfos()) {
+                        if (genre.getId() == gameGenre.getId()) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        iterator.remove();
+                    }
+                }
+            }
         }
 
 
