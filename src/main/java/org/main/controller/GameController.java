@@ -97,7 +97,7 @@ public class GameController {
                     break;
                 case "3":
                     System.out.println("Validation de la requête...");
-                    System.out.println("Combien de résultats souhaitez-vous afficher ?");
+                    System.out.println("Combien de résultats souhaitez-vous afficher ? (max 10)");
                     int resultLimit = scanner.nextInt();
                     scanner.nextLine(); // Passage à la ligne qui n'est pas effectué par nextInt()
                     userRequest.setResultLimit(resultLimit);
