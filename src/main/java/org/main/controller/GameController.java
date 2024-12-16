@@ -20,7 +20,7 @@ public class GameController {
         userRequest.setName(name);
     }
 
-    private void showGames(UserRequest userRequest, Scanner scanner) {
+    private void showGames(UserRequest userRequest) {
         List<Game> games = gameService.fetchGames(userRequest);
         if(games != null && !games.isEmpty()) {
             for(Game game : games) {
@@ -101,7 +101,14 @@ public class GameController {
                     int resultLimit = scanner.nextInt();
                     scanner.nextLine(); // Passage à la ligne qui n'est pas effectué par nextInt()
                     userRequest.setResultLimit(resultLimit);
-                    showGames(userRequest, scanner);
+                    System.out.println("Dans quel ordre souhaitez vous trier les résultats ?");
+                    System.out.println("1. Par nom");
+                    System.out.println("2. Par note utilisateur");
+                    System.out.println("3. Par note critique");
+                    System.out.println("ENTER. tri par défaut de l'API");
+                    String sortOption = scanner.nextLine().trim();
+                    userRequest.setSortOption(sortOption);
+                    showGames(userRequest);
                     userRequest.reset();
                     break;
                 case "4":

@@ -1,6 +1,5 @@
 package org.main.services;
 
-import okhttp3.internal.platform.Platform;
 import org.main.models.Game;
 import org.main.models.UserRequest;
 import org.main.repository.GameHttpRepo;
@@ -28,8 +27,24 @@ public class GameService {
         filterStores(stores, games);
         filterPlatforms(platforms, games);
 
+        // Tri selon le choix de l'utilisateur
+        switch (request.getSortOption()) {
+            case "1":
+                games.sort(Comparator.comparing(Game::getTitle));
+                break;
+            case "2":
+                games.sort(Comparator.comparing(Game::getUserRating).reversed());
+                break;
+            case "3":
+                games.sort(Comparator.comparing(Game::getCriticRating,
+                        Comparator.nullsLast(Comparator.naturalOrder())).reversed());
+                break;
+            default:
+                break;
+        }
+
         // Réduction des résultats au nombre souhaité par l'utilisateur
-        if(games.size() > request.getResultLimit()) {
+        if(games.size() >= request.getResultLimit()) {
             return games.subList(0, request.getResultLimit());
         }
 

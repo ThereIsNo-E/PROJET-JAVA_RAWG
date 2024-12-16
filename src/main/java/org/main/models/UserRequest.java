@@ -11,6 +11,7 @@ import java.util.List;
 public class UserRequest {
     private String name;
     private int resultLimit = 10;
+    private String sortOption;
     private List<PlatformInfo> platforms = new ArrayList<>();
     private List<GenreInfo> genres = new ArrayList<>();
     private List<StoreInfo> stores = new ArrayList<>();
@@ -31,6 +32,13 @@ public class UserRequest {
         this.name = name;
     }
 
+    public void setSortOption(String sortOption) {
+        this.sortOption = sortOption;
+    }
+
+    public String getSortOption() {
+        return sortOption;
+    }
     public List<PlatformInfo> getPlatforms() {
         return platforms;
     }

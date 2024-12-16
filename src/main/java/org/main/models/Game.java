@@ -19,10 +19,30 @@ public class Game {
     @Json(name = "rating")
     private float userRating;
     @Json(name = "metacritic")
-    private Integer criticRating = -1;
+    // usage de la classe Integer pour valeur nullable
+    private Integer criticRating;
     @Json(name = "genres")
     private List<GenreInfo> genreInfos;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getReleased() {
+        return released;
+    }
+
+    public float getUserRating() {
+        return userRating;
+    }
+
+    public Integer getCriticRating() {
+        return criticRating;
+    }
+
+    public float getAveragePlaytime() {
+        return averagePlaytime;
+    }
     public List<PlatformWrapper> getPlatformWrappers() {
         return platformWrappers;
     }
