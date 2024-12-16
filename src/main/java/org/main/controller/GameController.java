@@ -20,10 +20,12 @@ public class GameController {
         userRequest.setName(name);
     }
 
-    private void showGames(UserRequest userRequest) {
+    private void showGames(UserRequest userRequest, Scanner scanner) {
         List<Game> games = gameService.fetchGames(userRequest);
-        if(games != null) {
-            System.out.println(games.getFirst());
+        if(games != null && !games.isEmpty()) {
+            for(Game game : games) {
+                System.out.println(game);
+            }
         }
         else {
             System.out.println("Aucuns jeux correspondants");
@@ -75,7 +77,7 @@ public class GameController {
             System.out.println("Quelle action souhaitez-vous exécuter ?");
             System.out.println("1. Ajouter un nom");
             System.out.println("2. Ajouter un filtre");
-            System.out.println("3. Envoyer la requête");
+            System.out.println("3. Valider la requête");
             System.out.println("4. Quitter");
             String option = scanner.nextLine().trim();
 
@@ -94,8 +96,12 @@ public class GameController {
                     addGameFilter(filterOption, userRequest, scanner);
                     break;
                 case "3":
-                    System.out.println("Envoi de la requête...");
-                    showGames(userRequest);
+                    System.out.println("Validation de la requête...");
+                    System.out.println("Combien de résultats souhaitez-vous afficher ?");
+                    int resultLimit = scanner.nextInt();
+                    scanner.nextLine(); // Passage à la ligne qui n'est pas effectué par nextInt()
+                    userRequest.setResultLimit(resultLimit);
+                    showGames(userRequest, scanner);
                     userRequest.reset();
                     break;
                 case "4":

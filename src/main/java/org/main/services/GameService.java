@@ -28,6 +28,11 @@ public class GameService {
         filterStores(stores, games);
         filterPlatforms(platforms, games);
 
+        // Réduction des résultats au nombre souhaité par l'utilisateur
+        if(games.size() > request.getResultLimit()) {
+            return games.subList(0, request.getResultLimit());
+        }
+
         return games;
     }
 

@@ -10,12 +10,21 @@ import java.util.List;
 // Fait le lien entre le controller et le gameService
 public class UserRequest {
     private String name;
+    private int resultLimit = 10;
     private List<PlatformInfo> platforms = new ArrayList<>();
     private List<GenreInfo> genres = new ArrayList<>();
     private List<StoreInfo> stores = new ArrayList<>();
 
     public String getName() {
         return name;
+    }
+
+    public int getResultLimit() {
+        return resultLimit;
+    }
+
+    public void setResultLimit(int resultLimit) {
+        this.resultLimit = resultLimit;
     }
 
     public void setName(String name) {
